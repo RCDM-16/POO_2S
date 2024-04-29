@@ -8,11 +8,48 @@ public class Main {
         Distancia distancia = new Distancia();
 
         JOptionPane.showMessageDialog(null, distancia.toString());
+        boolean bandera = true;
 
-        distancia.setX1(Float.parseFloat(JOptionPane.showInputDialog("Ingrese el valor de X1: ")));
-        distancia.setX2(Float.parseFloat(JOptionPane.showInputDialog("Ingrese el valor de X2: ")));
-        distancia.setY1(Float.parseFloat(JOptionPane.showInputDialog("Ingrese el valor de Y1: ")));
-        distancia.setY2(Float.parseFloat(JOptionPane.showInputDialog("Ingrese el valor de Y2: ")));
+        do {
+            try {
+                distancia.setX1(Float.parseFloat(JOptionPane.showInputDialog("Ingrese el valor de X1: ")));
+                bandera = true;
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "El valor para  debe de ser numerico");
+                bandera = false;
+            }
+        } while (!bandera);
+
+        do {
+            try {
+                distancia.setX2(Float.parseFloat(JOptionPane.showInputDialog("Ingrese el valor de X2: ")));
+                bandera = true;
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "El valor para  debe de ser numerico");
+                bandera = false;
+            }
+        } while (!bandera);
+
+        do {
+            try {
+                distancia.setY1(Float.parseFloat(JOptionPane.showInputDialog("Ingrese el valor de Y1: ")));
+                bandera = true;
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "El valor para  debe de ser numerico");
+                bandera = false;
+            }
+        } while (!bandera);
+
+        do {
+            try {
+                distancia.setY2(Float.parseFloat(JOptionPane.showInputDialog("Ingrese el valor de Y2: ")));
+                bandera = true;
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "El valor para  debe de ser numerico");
+                bandera = false;
+            }
+        } while (!bandera);
+
 
         JOptionPane.showMessageDialog(null, distancia.toString());
     }

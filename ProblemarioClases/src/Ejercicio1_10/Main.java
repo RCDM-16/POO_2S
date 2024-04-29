@@ -9,7 +9,18 @@ public class Main {
 
         JOptionPane.showMessageDialog(null, pedido.toString());
 
-        pedido.setMetros(Float.parseFloat(JOptionPane.showInputDialog("Ingrese los metros que ocupará: ")));
+        boolean bandera = true;
+
+        do {
+            try {
+                pedido.setMetros(Float.parseFloat(JOptionPane.showInputDialog("Ingrese los metros que ocupará: ")));
+                bandera = true;
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "El valor para la cantidad de metros de ser numerico");
+                bandera = false;
+            }
+        } while (!bandera);
 
         JOptionPane.showMessageDialog(null, pedido.toString());
     }

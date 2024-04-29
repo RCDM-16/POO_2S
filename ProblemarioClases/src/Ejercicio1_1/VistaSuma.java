@@ -27,8 +27,29 @@ public class VistaSuma {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 Suma suma = new Suma();
-                suma.setNumero1(Short.parseShort(tfNumero1.getText()));
-                suma.setNumero2(Short.parseShort(tfNumero2.getText()));
+                boolean bandera = true;
+                do {
+                    try {
+                        suma.setNumero1(Short.parseShort(tfNumero1.getText()));
+                        bandera = true;
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "El valor denecita un valor numerico");
+                        bandera = false;
+                    }
+
+                } while (!bandera);
+
+                do {
+                    try {
+                        suma.setNumero2(Short.parseShort(tfNumero2.getText()));
+                        bandera = true;
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "El valor denecita un valor numerico");
+                        bandera = false;
+                    }
+
+                } while (!bandera);
+
                 tfResultado.setText("" + suma.sumaNumeros());
 
             }

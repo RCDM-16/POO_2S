@@ -8,7 +8,7 @@ public class Main {
         Produccion produccion = new Produccion();
 
         JOptionPane.showMessageDialog(null, produccion.toString());
-        boolean bandera = true;
+        boolean bandera;
 
         do {
             try {

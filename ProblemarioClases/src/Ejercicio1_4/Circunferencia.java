@@ -3,14 +3,18 @@ package Ejercicio1_4;
 public class Circunferencia {
     private float radio;
 
-    public Circunferencia() {
-        radio = 1;
+    public Circunferencia(float radio) throws CircunferenciaExcepcion {
+        setRadio(radio);
     }
 
-    public void setRadio(float a) {
+    public Circunferencia() throws CircunferenciaExcepcion {
+        this(1);
+    }
+
+    public void setRadio(float a) throws CircunferenciaExcepcion {
         radio = a;
         if (a <= 0) {
-            radio = 1;
+            throw new CircunferenciaExcepcion("El valor no debe de ser negativo");
         }
     }
 
@@ -23,10 +27,10 @@ public class Circunferencia {
     }
 
     public double calculoArea() {
-        return ((3.1416 * 2) * radio);
+        return (3.1416 * Math.pow(radio, 2));
     }
 
     public double calculoPerimetro() {
-        return (3.1416 * Math.pow(radio, 2));
+        return ((3.1416 * 2) * radio);
     }
 }

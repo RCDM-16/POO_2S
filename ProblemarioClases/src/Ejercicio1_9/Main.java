@@ -9,7 +9,7 @@ public class Main {
 
         JOptionPane.showMessageDialog(null, trabajador.toString());
 
-        boolean bandera = true;
+        boolean bandera;
 
         do {
             try {

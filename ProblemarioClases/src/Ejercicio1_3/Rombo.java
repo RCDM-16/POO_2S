@@ -3,30 +3,34 @@ package Ejercicio1_3;
 public class Rombo {
     private float lado, diagonalMayor, diagonalMenor;
 
-    public Rombo() {
-        lado = 1;
-        diagonalMayor = 1;
-        diagonalMenor = 1;
+    public Rombo(float lado, float diagonalMayor, float diagonalMenor) throws RomboException{
+        setLado(lado);
+        setDiagonalMayor(diagonalMayor);
+        setDiagonalMenor(diagonalMenor);
     }
 
-    public void setLado(float a) {
+    public Rombo() throws RomboException {
+        this(1, 2, 2);
+    }
+
+    public void setLado(float a) throws RomboException{
         lado = a;
         if (a <= 0) {
-            lado = 1;
+            throw new RomboException("El valor no debe de ser negativo");
         }
     }
 
-    public void setDiagonalMayor(float a) {
+    public void setDiagonalMayor(float a) throws RomboException{
         diagonalMayor = a;
         if (a <= 0) {
-            diagonalMayor = 1;
+            throw new RomboException("El valor no debe de ser negativo");
         }
     }
 
-    public void setDiagonalMenor(float a) {
+    public void setDiagonalMenor(float a)throws RomboException {
         diagonalMenor = a;
         if (a <= 0) {
-            diagonalMenor = 1;
+            throw new RomboException("El valor no debe de ser negativo");
         }
     }
 
@@ -42,12 +46,12 @@ public class Rombo {
         return diagonalMenor;
     }
 
-    public String toString(){
-        return "Lado: "+lado+
-                "\nDiagonal Mayor: "+diagonalMayor+
-                "\nDiagonal Menor: "+diagonalMenor+
-                "\nArea: "+calculoArea()+
-                "\nPerímetro: "+calculoPerimetro();
+    public String toString() {
+        return "Lado: " + lado +
+                "\nDiagonal Mayor: " + diagonalMayor +
+                "\nDiagonal Menor: " + diagonalMenor +
+                "\nArea: " + calculoArea() +
+                "\nPerímetro: " + calculoPerimetro();
     }
 
     public double calculoArea() {

@@ -4,6 +4,11 @@ public class Suma {
 
     private short numero1, numero2;
 
+    public Suma(short numero1, short numero2) {
+        setNumero1(numero1);
+        setNumero2(numero2);
+    }
+
     public Suma() {
         numero1 = 1;
         numero2 = 1;

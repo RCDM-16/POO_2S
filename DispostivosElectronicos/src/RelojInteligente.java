@@ -4,8 +4,8 @@ public class RelojInteligente extends Reloj {
 
     public RelojInteligente(String marca, float precio, byte descuento, String tipoCorrea, String categoria, byte duracionHrs, byte tiempoCarga) {
         super(marca, precio, descuento, tipoCorrea, categoria);
-        setDuracionHrs(duracionHrs);
-        setTiempoCarga(tiempoCarga);
+        this.tiempoCarga = tiempoCarga;
+        this.duracionHrs = duracionHrs;
     }
 
     public RelojInteligente() {
@@ -16,8 +16,12 @@ public class RelojInteligente extends Reloj {
         return duracionHrs;
     }
 
-    public void setDuracionHrs(byte duracionHrs) {
-        this.duracionHrs = (duracionHrs < 8 || duracionHrs > 80) ? 1 : duracionHrs;
+    public void setDuracionHrs(byte duracionHrs)throws DispositivosExeption {
+        if (duracionHrs < 8 || duracionHrs > 80){
+            this.duracionHrs = duracionHrs;
+        } else {
+            throw new DispositivosExeption("Ingrese un valor positivo");
+        }
 
     }
 
@@ -25,8 +29,12 @@ public class RelojInteligente extends Reloj {
         return tiempoCarga;
     }
 
-    public void setTiempoCarga(byte tiempoCarga) {
-        this.tiempoCarga = (tiempoCarga <= 0 || tiempoCarga > 60) ? 1 : tiempoCarga;
+    public void setTiempoCarga(byte tiempoCarga) throws DispositivosExeption{
+       if (tiempoCarga <= 0 || tiempoCarga > 60){
+           this.tiempoCarga = tiempoCarga;
+       }else{
+           throw new DispositivosExeption("Ingrese un valor positivo");
+       }
     }
 
     @Override
@@ -35,5 +43,17 @@ public class RelojInteligente extends Reloj {
                 "\nReloj Inteligent: " +
                 "\nHoras de duracion: " + duracionHrs +
                 "\nTiempo de carga: " + tiempoCarga;
+    }
+
+
+    public double precioTotal() {
+        int valorAgregado = duracionHrs > 40 ? 500 : 300;
+
+        return super.precioTotal() + valorAgregado;
+    }
+
+    @Override
+    public double puntosTienda() {
+        return  precioTotal()*0.002;
     }
 }

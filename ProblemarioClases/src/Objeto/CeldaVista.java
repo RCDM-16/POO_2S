@@ -13,14 +13,8 @@ public class CeldaVista {
     private JComboBox cbArea;
     private JSpinner spNoRetretes;
     private JSpinner spNumeroLiteras;
-    private JFormattedTextField ftfValorMonetarioCelda;
-    private JFormattedTextField ftfMantenimiento;
-    private JTextField tfIdCelda;
+    private JSpinner tfIdCelda;
     private JComboBox cbTipoCelda;
-    private JComboBox cbTipoPresos;
-    private JRadioButton rbVacioTrue;
-    private JRadioButton rbVacioFalse;
-    private JCheckBox chbServicio;
     private JButton btnRegistro;
     private JLabel tfExit;
 
@@ -41,11 +35,6 @@ public class CeldaVista {
 
 
     public CeldaVista() {
-        ButtonGroup grupoRadio = new ButtonGroup();
-        grupoRadio.add(rbVacioTrue);
-        grupoRadio.add(rbVacioFalse);
-        rbVacioTrue.setSelected(true);
-
         nm1.setMaximum(10);
         nm1.setMinimum(1);
         nm1.setValue(1);
@@ -55,36 +44,16 @@ public class CeldaVista {
         nm2.setValue(1);
         spNumeroLiteras.setModel(nm2);
 
-
-        ftfValorMonetarioCelda.setFormatterFactory(formato);
-        ftfMantenimiento.setFormatterFactory(formato);
-
         btnRegistro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 Celda celda = new Celda();
 
-                celda.setIdCelda(tfIdCelda.getText());
+                celda.setIdCelda(Integer.parseInt(tfIdCelda.getValue().toString()));
                 celda.setArea(Objects.requireNonNull(cbArea.getSelectedItem()).toString());
                 celda.setNoRetretes(Byte.parseByte(spNoRetretes.getValue().toString()));
                 celda.setNoLiteras(Byte.parseByte(spNumeroLiteras.getValue().toString()));
-                celda.setValorMonetarioCelda(Float.parseFloat(ftfValorMonetarioCelda.getText()));
-                celda.setMantenimiento(Float.parseFloat(ftfMantenimiento.getText()));
                 celda.setTipoCelda(Objects.requireNonNull(cbTipoCelda.getSelectedItem()).toString().charAt(0));
-                celda.setTipoPresos(Objects.requireNonNull(cbTipoPresos.getSelectedItem()).toString().charAt(0));
-
-                if (rbVacioTrue.isSelected()) {
-                    celda.setVacia(true);
-                } else if (rbVacioFalse.isSelected()) {
-                    celda.setVacia(false);
-
-                }
-
-                if (chbServicio.isSelected()) {
-                    celda.setEnServicio(true);
-                } else {
-                    celda.setEnServicio(false);
-                }
 
                 JOptionPane.showMessageDialog(null, celda.toString());
 
@@ -96,6 +65,7 @@ public class CeldaVista {
             public void mouseClicked(MouseEvent e) {
                 System.exit(0);
             }
+
             public void mouseEntered(MouseEvent e) {
                 tfExit.setCursor(new Cursor(Cursor.HAND_CURSOR));
             }

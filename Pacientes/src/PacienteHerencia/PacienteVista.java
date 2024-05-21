@@ -20,7 +20,7 @@ public class PacienteVista {
     private JSpinner spinner1;
     private JSpinner spinner2;
     private JTextField textField2;
-    private JSpinner spinner3;
+    private JSpinner spinner3;w
     private JTextField textField3;
     private JTextField textField4;
     private JTextField textField5;

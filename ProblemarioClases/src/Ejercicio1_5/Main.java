@@ -8,7 +8,7 @@ public class Main {
         Terreno terreno = new Terreno();
 
         JOptionPane.showMessageDialog(null, terreno.toString());
-        boolean bandera = true;
+        boolean bandera;
 
         do {
             try {

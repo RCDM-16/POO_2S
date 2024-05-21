@@ -1,13 +1,14 @@
+import javax.swing.*;
 
-public class DispositivoElectronico {
+public abstract class DispositivoElectronico {
     private String marca;
     private float precio;
     private byte descuento;
 
     public DispositivoElectronico(String marca, float precio, byte descuento) {
-        setDescuento(descuento);
+        this.descuento = descuento;
         setMarca(marca);
-        setPrecio(precio);
+        this.precio = precio;
     }
 
     public DispositivoElectronico() {
@@ -27,23 +28,29 @@ public class DispositivoElectronico {
         return precio;
     }
 
-    public void setPrecio(float precio) {
-        this.precio = (precio <= 0) ? 1 : precio;
+    public void setPrecio(float precio)throws DispositivosExeption {
+        if(precio > 0){
+            this.precio = precio;
+        } else {
+            throw new DispositivosExeption("El valor debe ser positivo");
+        }
     }
 
     public byte getDescuento() {
         return descuento;
     }
 
-    public void setDescuento(byte descuento) {
-        this.descuento = (descuento < 0 || descuento > 100) ? 0 : descuento;
+    public void setDescuento(byte descuento)throws DispositivosExeption {
+        if (descuento >= 0) {
+            this.descuento = descuento;
+        } else {
+            throw new DispositivosExeption("El valor debe ser positivo");
+        }
     }
-
     private double calculoDescuentoPrecio(float precio, byte descuento) {
         return precio - (precio * ((double) descuento / 100));
     }
 
-    @Override
     public String toString() {
         return "\nDispositivo Electronico:" +
                 "\nmarca: " + marca +
@@ -51,4 +58,10 @@ public class DispositivoElectronico {
                 "\ndescuento: " + descuento +
                 "\nPrecio con descuento: " + calculoDescuentoPrecio(precio, descuento);
     }
+
+
+    public abstract double precioTotal();
+
+    public abstract double puntosTienda();
+
 }

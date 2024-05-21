@@ -3,6 +3,8 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.text.DecimalFormat;
 
 public class VistaDispositivos {
@@ -10,15 +12,8 @@ public class VistaDispositivos {
     private JComboBox cbMarca;
     private JSpinner sDescuento;
     private JFormattedTextField ftfprecio;
-    private JTabbedPane tabbedPane1;
-    private JTabbedPane tabbedPane2;
     private JComboBox cbCompania;
     private JComboBox cbTipo;
-    private JButton bRegistrarTelefono;
-    private JButton bResgitrarInteligente;
-    private JButton bRegistrarReloj;
-    private JButton bRegistrarTablet;
-    private JButton bRegistrarLaptop;
     private JSpinner sRam;
     private JSpinner sUsb;
     private JLabel s;
@@ -29,124 +24,413 @@ public class VistaDispositivos {
     private JComboBox cbCorrea;
     private JRadioButton rbAnaligo;
     private JRadioButton digítalRadioButton;
+    private JComboBox cbProdcuto;
+    private JPanel pLaptop;
+    private JPanel pTelefono;
+    private JPanel pTablet;
+    private JPanel pReloj;
+    private JCheckBox inteligenteCheckBox;
+    private JPanel pInteligente;
+    private JButton registrarButton;
+    private JButton cancelarButton;
+    private JLabel errorDuracion;
+    private JLabel errorCarga;
+    private JLabel errorSlots;
+    private JLabel errorUsb;
+    private JLabel errorPulgadas;
+    private JLabel lErrorHz;
+    private JLabel errorDescuento;
+    private JLabel lErrorTipoProducto;
     private JFormattedTextField ftfHz;
 
 
     public VistaDispositivos() {
+
+        pLaptop.setVisible(false);
+        pTelefono.setVisible(false);
+        pReloj.setVisible(false);
+        pTablet.setVisible(false);
+        pInteligente.setVisible(false); //Panel de reloj inteligente
+
 
         DecimalFormat decimalFormat = new DecimalFormat();
         decimalFormat.setMaximumFractionDigits(2);
 
         ftfprecio.setFormatterFactory(new DefaultFormatterFactory(new NumberFormatter(decimalFormat)));
 
-        SpinnerNumberModel snmDescuento = new SpinnerNumberModel(0,0,100,1);
+        SpinnerNumberModel snmDescuento = new SpinnerNumberModel(0, 0, 100, 1);
         sDescuento.setModel(snmDescuento);
 
-        SpinnerNumberModel snmSlotsRam = new SpinnerNumberModel(1,1,6,1);
+        SpinnerNumberModel snmSlotsRam = new SpinnerNumberModel(1, 1, 6, 1);
         sRam.setModel(snmSlotsRam);
-        SpinnerNumberModel snmSlotsUSB = new SpinnerNumberModel(1,1,10,1);
+        SpinnerNumberModel snmSlotsUSB = new SpinnerNumberModel(1, 1, 10, 1);
         sUsb.setModel(snmSlotsUSB);
 
-        SpinnerNumberModel snmPulgadas = new SpinnerNumberModel(7,7,12,1);
+        SpinnerNumberModel snmPulgadas = new SpinnerNumberModel(7, 7, 12, 1);
         sPulgadas.setModel(snmPulgadas);
 
-        SpinnerNumberModel snmDuracion = new SpinnerNumberModel(8,8,80,1);
+        SpinnerNumberModel snmDuracion = new SpinnerNumberModel(8, 8, 80, 1);
         sDuracion.setModel(snmDuracion);
-        SpinnerNumberModel snmTiempoCarga = new SpinnerNumberModel(1,1,60,1);
+        SpinnerNumberModel snmTiempoCarga = new SpinnerNumberModel(1, 1, 60, 1);
         sCarga.setModel(snmTiempoCarga);
 
         rbAnaligo.setSelected(true);
 
-        bRegistrarLaptop.addActionListener(new ActionListener() {
+
+        cbProdcuto.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                switch (cbProdcuto.getSelectedItem().toString()) {
+                    case "Laptop":
 
-                Laptop laptop = new Laptop();
+                        pLaptop.setVisible(true);
+                        pReloj.setVisible(false);
+                        pTablet.setVisible(false);
+                        pTelefono.setVisible(false);
 
-                laptop.setMarca(cbMarca.getSelectedItem().toString());
-                laptop.setPrecio(Float.parseFloat(ftfprecio.getValue().toString()));
-                laptop.setDescuento(Byte.parseByte(sDescuento.getValue().toString()));
+                        break;
 
-                laptop.setNoEntradaUsb(Byte.parseByte(sUsb.getValue().toString()));
-                laptop.setSlots(Byte.parseByte(sRam.getValue().toString()));
+                    case "Tablet":
 
-                JOptionPane.showMessageDialog(null,laptop.toString());
+                        pLaptop.setVisible(false);
+                        pReloj.setVisible(false);
+                        pTablet.setVisible(true);
+                        pTelefono.setVisible(false);
 
+
+                        break;
+
+                    case "Telefono":
+
+                        pLaptop.setVisible(false);
+                        pReloj.setVisible(false);
+                        pTablet.setVisible(false);
+                        pTelefono.setVisible(true);
+
+
+                        break;
+
+
+                    case "Reloj":
+
+                        pLaptop.setVisible(false);
+                        pReloj.setVisible(true);
+                        pTablet.setVisible(false);
+                        pTelefono.setVisible(false);
+
+
+                        break;
+
+                }
             }
         });
 
-        bRegistrarTelefono.addActionListener(new ActionListener() {
+        registrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                Telefono telefono = new Telefono();
+                boolean bandera;
+                switch (cbProdcuto.getSelectedItem().toString()) {
 
-                telefono.setMarca(cbMarca.getSelectedItem().toString());
-                telefono.setPrecio(Float.parseFloat(ftfprecio.getValue().toString()));
-                telefono.setDescuento(Byte.parseByte(sDescuento.getValue().toString()));
+                    case "Laptop":
 
-                telefono.setCompania(cbCompania.getSelectedItem().toString());
-                telefono.setTipoEntrada(cbTipo.getSelectedItem().toString());
+                        Laptop laptop = new Laptop();
+                        errorSlots.setText("");
 
-                JOptionPane.showMessageDialog(null,telefono.toString());
+                        laptop.setMarca(cbMarca.getSelectedItem().toString());
+
+                        try {
+                            laptop.setPrecio(Float.parseFloat(ftfprecio.getValue().toString()));
+                            bandera = true;
+                        } catch (NumberFormatException cfe) {
+                            ftfprecio.setText("Ingrese un valor númerico");
+                            bandera = false;
+                        } catch (DispositivosExeption de) {
+                            ftfprecio.setText(de.toString());
+                            bandera = false;
+                        } catch (NullPointerException ne) {
+                            ftfprecio.setText("Error: ingrese un valor");
+                            bandera = false;
+                        }
+
+                        try {
+                            laptop.setDescuento(Byte.parseByte(sDescuento.getValue().toString()));
+                            bandera = true;
+                        } catch (NumberFormatException cfe) {
+                            ftfprecio.setText("Ingrese un valor númerico");
+                            bandera = false;
+                        } catch (DispositivosExeption de) {
+                            errorDescuento.setText(de.toString());
+                            bandera = false;
+                        }
+
+                        try {
+                            laptop.setNoEntradaUsb(Byte.parseByte(sUsb.getValue().toString()));
+                            bandera = true;
+                        } catch (NumberFormatException cfe) {
+                            ftfprecio.setText("Ingrese un valor númerico");
+                            bandera = false;
+                        } catch (DispositivosExeption de) {
+                            errorUsb.setText(de.toString());
+                            bandera = false;
+                        }
+
+
+                        try {
+                            laptop.setSlots(Byte.parseByte(sRam.getValue().toString()));
+                            bandera = true;
+                        } catch (NumberFormatException cfe) {
+                            errorSlots.setText("Ingrese un valor númerico");
+                            bandera = false;
+                        } catch (DispositivosExeption de) {
+                            errorSlots.setText(de.toString());
+                            bandera = false;
+                        }
+
+                        if (bandera) {
+                            JOptionPane.showMessageDialog(null, laptop.toString());
+                            JOptionPane.showMessageDialog(null, "Precio Total: " + laptop.precioTotal());
+                            JOptionPane.showMessageDialog(null, "Puntos ganados: " + laptop.puntosTienda());
+                        }
+
+                        break;
+
+                    case "Tablet":
+
+                        Tablet tablet = new Tablet();
+
+                        tablet.setMarca(cbMarca.getSelectedItem().toString());
+
+                        try {
+                            tablet.setPrecio(Float.parseFloat(ftfprecio.getValue().toString()));
+                            bandera = true;
+                        } catch (NumberFormatException cfe) {
+                            ftfprecio.setText("Ingrese un valor númerico");
+                            bandera = false;
+                        } catch (DispositivosExeption de) {
+                            ftfprecio.setText(de.toString());
+                            bandera = false;
+                        } catch (NullPointerException ne) {
+                            ftfprecio.setText("Error: ingrese un valor");
+                            bandera = false;
+                        }
+
+
+                        try {
+                            tablet.setDescuento(Byte.parseByte(sDescuento.getValue().toString()));
+                            bandera = true;
+                        } catch (NumberFormatException cfe) {
+                            ftfprecio.setText("Ingrese un valor númerico");
+                            bandera = false;
+                        } catch (DispositivosExeption de) {
+                            errorDescuento.setText(de.toString());
+                            bandera = false;
+                        }
+
+
+                        try {
+                            tablet.setGhz(Float.parseFloat(tfHz.getText().replace(",", "")));
+                            bandera = true;
+                        } catch (NumberFormatException nf) {
+                            lErrorHz.setText("EL valor debe de ser numerico");
+                            bandera = false;
+                        } catch (DispositivosExeption de) {
+                            lErrorHz.setText(de.toString());
+                            bandera = false;
+                        }
+
+                        try {
+                            tablet.setPulgadas(Byte.parseByte(sPulgadas.getValue().toString()));
+                            bandera = true;
+                        } catch (NumberFormatException nf) {
+                            errorPulgadas.setText("EL valor debe de ser numerico");
+                            bandera = false;
+                        } catch (DispositivosExeption de) {
+                            errorPulgadas.setText(de.toString());
+                            bandera = false;
+                        } catch (ClassCastException cc) {
+                            errorPulgadas.setText("El valor es muy grande");
+                            bandera = false;
+                        }
+
+                        if (bandera) {
+                            JOptionPane.showMessageDialog(null, tablet.toString());
+                            JOptionPane.showMessageDialog(null, "Precio Total: " + tablet.precioTotal());
+                            JOptionPane.showMessageDialog(null, "Puntos ganados: " + tablet.puntosTienda());
+                        }
+
+                        break;
+
+                    case "Telefono":
+
+                        Telefono telefono = new Telefono();
+
+                        telefono.setMarca(cbMarca.getSelectedItem().toString());
+
+                        try {
+                            telefono.setPrecio(Float.parseFloat(ftfprecio.getValue().toString()));
+                            bandera = true;
+                        } catch (NumberFormatException cfe) {
+                            ftfprecio.setText("Ingrese un valor númerico");
+                            bandera = false;
+                        } catch (DispositivosExeption de) {
+                            ftfprecio.setText(de.toString());
+                            bandera = false;
+                        } catch (NullPointerException ne) {
+                            ftfprecio.setText("Error: ingrese un valor");
+                            bandera = false;
+                        }
+
+
+                        try {
+                            telefono.setDescuento(Byte.parseByte(sDescuento.getValue().toString()));
+                            bandera = true;
+                        } catch (NumberFormatException cfe) {
+                            ftfprecio.setText("Ingrese un valor númerico");
+                            bandera = false;
+                        } catch (DispositivosExeption de) {
+                            errorDescuento.setText(de.toString());
+                            bandera = false;
+                        }
+
+
+                        telefono.setCompania(cbCompania.getSelectedItem().toString());
+                        telefono.setTipoEntrada(cbTipo.getSelectedItem().toString());
+
+                        if (bandera) {
+                            JOptionPane.showMessageDialog(null, telefono.toString());
+                            JOptionPane.showMessageDialog(null, "Precio Total: " + telefono.precioTotal());
+                            JOptionPane.showMessageDialog(null, "Puntos ganados: " + telefono.puntosTienda());
+                        }
+
+
+                        break;
+
+                    case "Reloj":
+
+                        Reloj reloj = new Reloj();
+
+                        reloj.setMarca(cbMarca.getSelectedItem().toString());
+                        try {
+                            reloj.setPrecio(Float.parseFloat(ftfprecio.getValue().toString()));
+                            bandera = true;
+                        } catch (NumberFormatException cfe) {
+                            ftfprecio.setText("Ingrese un valor númerico");
+                            bandera = false;
+                        } catch (DispositivosExeption de) {
+                            ftfprecio.setText(de.toString());
+                            bandera = false;
+                        } catch (NullPointerException ne) {
+                            ftfprecio.setText("Error: ingrese un valor");
+                            bandera = false;
+                        }
+
+
+                        try {
+                            reloj.setDescuento(Byte.parseByte(sDescuento.getValue().toString()));
+                            bandera = true;
+                        } catch (NumberFormatException cfe) {
+                            ftfprecio.setText("Ingrese un valor númerico");
+                            bandera = false;
+                        } catch (DispositivosExeption de) {
+                            errorDescuento.setText(de.toString());
+                            bandera = false;
+                        }
+
+                        reloj.setTipoCorrea(cbCorrea.getSelectedItem().toString());
+                        reloj.setCategoria(String.valueOf(rbAnaligo.isSelected() ? 'A' : 'D'));
+
+                        if (bandera) {
+                            JOptionPane.showMessageDialog(null, reloj.toString());
+                            JOptionPane.showMessageDialog(null, "Precio Total: " + reloj.precioTotal());
+                            JOptionPane.showMessageDialog(null, "Puntos ganados: " + reloj.puntosTienda());
+                        }
+
+
+                        break;
+                    default:
+                        lErrorTipoProducto.setText("Seleccione un tio de producto");
+                        break;
+                }
             }
         });
-
-        bRegistrarTablet.addActionListener(new ActionListener() {
+        inteligenteCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                Tablet tablet = new Tablet();
+                if (inteligenteCheckBox.isSelected()) {
+                    pInteligente.setVisible(true);
+                } else {
+                    pInteligente.setVisible(false);
+                }
+            }
+        });
+        cancelarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
-                tablet.setMarca(cbMarca.getSelectedItem().toString());
-                tablet.setPrecio(Float.parseFloat(ftfprecio.getValue().toString()));
-                tablet.setDescuento(Byte.parseByte(sDescuento.getValue().toString()));
+                cbProdcuto.setSelectedIndex(0);
+                pLaptop.setVisible(false);
+                pReloj.setVisible(false);
+                pTablet.setVisible(false);
+                pTelefono.setVisible(false);
+                pInteligente.setVisible(false);
 
-                tablet.setPulgadas(Byte.parseByte(sPulgadas.getValue().toString()));
-                tablet.setGhz(Float.parseFloat(tfHz.getText()));
-
-                JOptionPane.showMessageDialog(null,tablet.toString());
 
             }
         });
-
-
-        bRegistrarReloj.addActionListener(new ActionListener() {
+        ftfprecio.addFocusListener(new FocusAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-
-                Reloj reloj = new Reloj();
-
-                reloj.setMarca(cbMarca.getSelectedItem().toString());
-                reloj.setPrecio(Float.parseFloat(ftfprecio.getValue().toString()));
-                reloj.setDescuento(Byte.parseByte(sDescuento.getValue().toString()));
-
-                reloj.setTipoCorrea(cbCorrea.getSelectedItem().toString());
-                reloj.setCategoria(rbAnaligo.isSelected() ? "Analogíco":"Digital");
-
-                JOptionPane.showMessageDialog(null, reloj.toString());
+            public void focusGained(FocusEvent e) {
+                ftfprecio.setText("");
             }
         });
-
-
-        bResgitrarInteligente.addActionListener(new ActionListener() {
+        sDescuento.addFocusListener(new FocusAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-
-                RelojInteligente relojInteligente = new RelojInteligente();
-
-                relojInteligente.setMarca(cbMarca.getSelectedItem().toString());
-                relojInteligente.setPrecio(Float.parseFloat(ftfprecio.getValue().toString()));
-                relojInteligente.setDescuento(Byte.parseByte(sDescuento.getValue().toString()));
-
-                relojInteligente.setTipoCorrea(cbCorrea.getSelectedItem().toString());
-                relojInteligente.setCategoria(rbAnaligo.isSelected() ? "Analogíco":"Digital");
-
-                relojInteligente.setTiempoCarga(Byte.parseByte(sCarga.getValue().toString()));
-                relojInteligente.setDuracionHrs(Byte.parseByte(sDuracion.getValue().toString()));
-
-                JOptionPane.showMessageDialog(null, relojInteligente.toString());
-
+            public void focusGained(FocusEvent e) {
+                errorDescuento.setText("");
+            }
+        });
+        cbProdcuto.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                lErrorTipoProducto.setText("");
+            }
+        });
+        sDuracion.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                errorDuracion.setText("");
+            }
+        });
+        sCarga.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                errorCarga.setText("");
+            }
+        });
+        sRam.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                errorSlots.setText("");
+            }
+        });
+        sUsb.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                errorUsb.setText("");
+            }
+        });
+        sPulgadas.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                errorPulgadas.setText("");
+            }
+        });
+        tfHz.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                lErrorHz.setText("");
             }
         });
     }
@@ -157,8 +441,9 @@ public class VistaDispositivos {
         frame.setContentPane(new VistaDispositivos().pPrincipal);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
+        frame.setSize(500, 600);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
-
     }
 }

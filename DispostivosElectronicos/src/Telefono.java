@@ -36,4 +36,13 @@ public class Telefono extends DispositivoElectronico{
                 "\nCompania:" + compania +
                 "\nTipo de Entrada:" + tipoEntrada;
     }
+
+    @Override
+    public double precioTotal() {
+        return getPrecio() - ((double) (getPrecio() * getDescuento()) / 100)+100;
+    }
+
+    public double puntosTienda() {
+        return  precioTotal()*0.006;
+    }
 }

@@ -9,7 +9,7 @@ public class Main {
 
         JOptionPane.showMessageDialog(null, terreno.toString());
 
-        boolean bandera = true;
+        boolean bandera;
         do {
             try {
                 terreno.setRadioTerreno(Float.parseFloat(JOptionPane.showInputDialog("Ingrese el valor del radio: ")));

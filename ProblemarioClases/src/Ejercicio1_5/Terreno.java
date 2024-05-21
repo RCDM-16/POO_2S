@@ -3,10 +3,14 @@ package Ejercicio1_5;
 public class Terreno {
     private float alturaTerrenoIzq, alturaTerrenoDere, baseTerreno;
 
+    public Terreno(float alturaTerrenoIzq, float alturaTerrenoDere, float baseTerreno) {
+        setAlturaTerrenoIzq(alturaTerrenoIzq);
+        setAlturaTerrenoDere(alturaTerrenoDere);
+        setBaseTerreno(baseTerreno);
+    }
+
     public Terreno() {
-        alturaTerrenoIzq = 1;
-        alturaTerrenoDere = 1;
-        baseTerreno = 1;
+        this(1,1,1);
     }
 
     public void setAlturaTerrenoIzq(float i) {

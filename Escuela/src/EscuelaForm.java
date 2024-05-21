@@ -138,7 +138,7 @@ public class EscuelaForm {
                         break;
 
                     case 3:
-                        pMaestria.setVisible(false);
+                        pMaestria.setVisible(false);sp
                         cbModalidad.setSelectedIndex(0);
                         spCreditos.setValue(0);
 

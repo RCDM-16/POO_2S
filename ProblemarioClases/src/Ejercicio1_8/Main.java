@@ -8,14 +8,14 @@ public class Main {
         Distancia distancia = new Distancia();
 
         JOptionPane.showMessageDialog(null, distancia.toString());
-        boolean bandera = true;
+        boolean bandera;
 
         do {
             try {
                 distancia.setX1(Float.parseFloat(JOptionPane.showInputDialog("Ingrese el valor de X1: ")));
                 bandera = true;
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "El valor para  debe de ser numerico");
+                JOptionPane.showMessageDialog(null, "El valor para X1 debe de ser numerico");
                 bandera = false;
             }
         } while (!bandera);
@@ -25,7 +25,7 @@ public class Main {
                 distancia.setX2(Float.parseFloat(JOptionPane.showInputDialog("Ingrese el valor de X2: ")));
                 bandera = true;
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "El valor para  debe de ser numerico");
+                JOptionPane.showMessageDialog(null, "El valor para X2 debe de ser numerico");
                 bandera = false;
             }
         } while (!bandera);
@@ -35,7 +35,7 @@ public class Main {
                 distancia.setY1(Float.parseFloat(JOptionPane.showInputDialog("Ingrese el valor de Y1: ")));
                 bandera = true;
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "El valor para  debe de ser numerico");
+                JOptionPane.showMessageDialog(null, "El valor para Y1 debe de ser numerico");
                 bandera = false;
             }
         } while (!bandera);
@@ -45,7 +45,7 @@ public class Main {
                 distancia.setY2(Float.parseFloat(JOptionPane.showInputDialog("Ingrese el valor de Y2: ")));
                 bandera = true;
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "El valor para  debe de ser numerico");
+                JOptionPane.showMessageDialog(null, "El valor para Y2 debe de ser numerico");
                 bandera = false;
             }
         } while (!bandera);

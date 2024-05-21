@@ -3,13 +3,11 @@ package Ejercicio1_2;
 public class Promedio {
     private int[] calificaciones = new int[4];
 
-    public Promedio() {
-
-
-        calificaciones[0] = 1;
-        calificaciones[1] = 1;
-        calificaciones[2] = 1;
-        calificaciones[3] = 1;
+    public Promedio(int calif1, int calif2, int calif3, int calif4) throws PromedioException {
+        setCalificaciones(0, calif1);
+        setCalificaciones(1, calif2);
+        setCalificaciones(2, calif3);
+        setCalificaciones(3, calif4);
 
         /*
         tambien podria funcionar:
@@ -20,10 +18,15 @@ public class Promedio {
         */
     }
 
-    public void setCalificaciones(int b, int i) {
+    public Promedio() throws PromedioException {
+        this(1, 2, 3, 4);
+
+    }
+
+    public void setCalificaciones(int b, int i) throws PromedioException {
         calificaciones[i] = b;
         if (b <= 0) {
-            calificaciones[i] = 1;
+            throw new PromedioException("El valor no debe de ser negativo");
         }
     }
 

@@ -11,7 +11,7 @@ public class Main {
         JOptionPane.showMessageDialog(null, pago.toString());
 
 
-        boolean bandera = true;
+        boolean bandera;
 
         do {
             try {
@@ -30,7 +30,7 @@ public class Main {
                 bandera = true;
 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "El valor para la cantidad de metros de ser numerico");
+                JOptionPane.showMessageDialog(null, "El valor para la altura debe de ser numerica");
                 bandera = false;
             }
         } while (!bandera);
@@ -41,7 +41,7 @@ public class Main {
                 bandera = true;
 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "El valor para la cantidad de metros de ser numerico");
+                JOptionPane.showMessageDialog(null, "El valor para la base debe de ser numerica");
                 bandera = false;
             }
         } while (!bandera);
